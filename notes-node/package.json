@@ -1,18 +1,11 @@
 {
-  "name": "helloworld",
+  "name": "notes-node",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "Danillo",
-    "Moraes"
-  ],
   "author": "Danillo Moraes",
-  "license": "ISC",
-  "dependencies": {
-    "lodash": "^4.17.10"
-  }
+  "license": "ISC"
 }
