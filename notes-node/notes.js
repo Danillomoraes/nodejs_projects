@@ -1,4 +1,3 @@
-console.log("Starting notes.js");
 
 const fs = require('fs');
 
@@ -29,7 +28,7 @@ var addNote = (title, body) => {
 
   var duplicatenotes = notes.filter((note) => note.title === title);
 
-  console.log(duplicatenotes);
+  //console.log(duplicatenotes);
 
   if (duplicatenotes.length === 0) {
     notes.push(note);
@@ -42,7 +41,7 @@ var addNote = (title, body) => {
 };
 
 var getAll = () => {
-  console.log('getting all notes');
+  return fetchNotes();
 };
 
 var getNote = (title) => {
