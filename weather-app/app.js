@@ -19,32 +19,38 @@ const argv = yargs.options ({
 
 var r = undefined;
 
+var requestWeather = (results) => {
+  
+  var long = results.Longitude;
+  var late = results.Latitude;
+  var url = `https://api.darksky.net/forecast/${darkSecret}/${late},${long}?lang=pt&si=temperature`;
+
+  console.log(url);
+
+  request({
+    rejectUnauthorized: false,
+    url: url,
+    json: true,
+    proxy: "http://CPTM%5Cdanillom:Cptm0004@iraque.cptm.info:80/"
+
+  }, (error, response, body) => {
+    if (error) {
+      console.log(error);
+    }else {
+      console.log(JSON.stringify(body, undefined, 2));
+      //console.log(body.currently);
+    }
+  })
+}
+
 geocode.geocodeAddress(argv.address, (errorMessage, results) => {
   if (errorMessage) {
     console.log(errorMessage);
   } else {
     console.log(JSON.stringify(results, undefined, 2));
 
-    var long = results.Longitude;
-    var late = results.Latitude;
-    var url = `https://api.darksky.net/forecast/${darkSecret}/${late},${long}?lang=pt&si=temperature`;
+    requestWeather(results);
 
-    console.log(url);
-
-    request({
-      rejectUnauthorized: false,
-      url: url,
-      json: true,
-      proxy: "http://CPTM%5Cdanillom:Cptm0004@iraque.cptm.info:80/"
-
-    }, (error, response, body) => {
-      if (error) {
-        console.log(error);
-      }else {
-        console.log(JSON.stringify(body, undefined, 2));
-        //console.log(body.currently);
-      }
-    })
   }
 });
 
