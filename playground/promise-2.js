@@ -6,6 +6,8 @@ var geocodeAddress = (address) => {
     var key = fetchKey().key
     var urlg = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${key}`
 
+    console.log(urlg);
+
   if (key) {
 
     request({
@@ -19,7 +21,7 @@ var geocodeAddress = (address) => {
       }else if (body.status === "ZERO_RESULTS") {
         reject("None Adress Founc")
       }else if(body.status === "OK"){
-
+        // console.log(JSON.stringify(body, undefined, 2));
         var lat = body.results[0].geometry.location.lat;
         var lng = body.results[0].geometry.location.lng;
 
@@ -45,7 +47,7 @@ var geocodeAddress = (address) => {
 
 var fetchKey = () => {
   try {
-    var keyString = fs.readFileSync('../weather-app/google.json');
+    var keyString = fs.readFileSync('google.json');
     return JSON.parse(keyString);
   } catch (e) {
     console.log('failed read key');
@@ -56,9 +58,10 @@ var fetchKey = () => {
 };
 
 geocodeAddress("r. terra roxa 59 cajamar sao paulo").then((result) => {
-  console.log(`Address: ${result.address}`);
-  console.log(`Latitude: ${result.latitude}`);
-  console.log(`Longitude: ${result.longitude}`);
+  // console.log(result);
+  console.log(`Address: ${result.Address}`);
+  console.log(`Latitude: ${result.Latitude}`);
+  console.log(`Longitude: ${result.Longitude}`);
 },(error) => {
   console.log(error);
 });

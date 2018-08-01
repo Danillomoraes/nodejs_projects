@@ -18,7 +18,8 @@ var requestWeather = (results, callback) => {
 
   }, (error, response, body) => {
     if (error) {
-      // console.log(error);
+      console.log(error);
+      console.log(response);
       callback("Unable to connect to darksky api");
     }else if(response.statusCode === 400) {
       // console.log('Unable to fetch weather');

@@ -18,6 +18,7 @@ var geocodeAddress = function (address, callback)  {
 
   var key = fetchKey().key
   var urlg = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${key}`
+  // console.log(urlg);
 
 if (key) {
 
@@ -32,7 +33,7 @@ if (key) {
     }else if (body.status === "ZERO_RESULTS") {
       callback("None Adress Founc")
     }else if(body.status === "OK"){
-
+      // console.log(response);
       var lat = body.results[0].geometry.location.lat;
       var lng = body.results[0].geometry.location.lng;
 
