@@ -2,8 +2,19 @@
 const yargs = require('yargs');
 // const axios = require('axios');
 const axios =require ('axios-https-proxy-fix');
-const fs = require('fs');
 const https = require('https');
+const fs = require('fs');
+
+const proxy = {proxy: {
+  host: 'iraque.cptm.info',
+  port: '80',
+  auth: {
+    username: 'CPTM%5Cdanillom',
+    password: 'Cptm0004'
+  }
+}};
+
+//https.globalAgent.options.ca = require('ssl-root-cas/latest').create();
 
 var fetchKey = () => {
   try {
@@ -29,14 +40,6 @@ const argv = yargs.options ({
 .alias("help", "h")
 .argv;
 
-const proxy = {proxy: {
-  host: 'iraque.cptm.info',
-  port: '80',
-  auth: {
-    username: 'CPTM%5Cdanillom',
-    password: 'Cptm0004'
-  }
-}};
 
 var encdAddress = encodeURIComponent(argv.address);
 var key = fetchKey().key;
@@ -51,11 +54,11 @@ axios.get(url, proxy).then((response) => {
   var late = response.data.results[0].geometry.location.lat;
   var fortaddr = response.data.results[0].formatted_address;
   var darkSecret = "c5876f20dbf92c97d78eb1425601206f";
-  var url = `https://api.darksky.net/forecast/${darkSecret}/${late},${long}?lang=pt&si=temperature`;
+  var weatherUrl = `https://api.darksky.net/forecast/${darkSecret}/${late},${long}?lang=pt&si=temperature`;
 
   console.log(fortaddr);
 
-  return axios.get(url, proxy).then((response) => {
+  return axios.get(weatherUrl, proxy).then((response) => {
     var temp =  response.data.currently.temperature;
     var summ = response.data.hourly.data[0].summary;
     console.log(`Temperatura: ${temp}`);
@@ -66,6 +69,6 @@ axios.get(url, proxy).then((response) => {
   if (e.code === 'ENOTFOUND') {
     console.log('unable to connect to api server');
   }else {
-    console.log(e);
+    console.log(e.message);
   }
 });
